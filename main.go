@@ -1,33 +1,35 @@
 package main
 
-/**
-- Every go project will have main.go
-- main.go only pulls all the packages and other packages cannot import anything from main.go
-*/
-
 import (
 	"fmt"
 )
 
 func main() {
-	var title string = "Hello world"
-	title1 := "Hello world" // declaring and initializing, type inference
-	fmt.Println(title)
-	fmt.Println(title1)
-	var (
-		isEmpty bool = true
-		isNew   bool = true
-		value   int  = 100
-	)
+	// channel
+	messages := make(chan string)
 
-	fmt.Println(isEmpty, isNew, value)
+	// msg0 := <-messages
+	// fmt.Println(msg0)
 
-	sum, product := getSumAndProduct(4, 4)
-	fmt.Println(sum, product)
+	// goroutine
+	go func() {
+		messages <- "ping1"
+		messages <- "ping2"
+		messages <- "ping3"
+		messages <- "ping4"
+		messages <- "ping5"
+	}()
 
-}
+	// msg1 := <-messages
+	// fmt.Println(msg1)
 
-// not exported
-func getSumAndProduct(a int, b int) (int, int) {
-	return a + b, a * b
+	go func() {
+		receiverMsg := <-messages
+		fmt.Println("receiver: ", receiverMsg)
+	}()
+
+	msg := <-messages
+	fmt.Println(msg)
+
+	close(messages)
 }
