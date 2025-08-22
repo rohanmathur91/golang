@@ -2,34 +2,16 @@ package main
 
 import (
 	"fmt"
+	"golang/internal/app"
 )
 
 func main() {
-	// channel
-	messages := make(chan string)
+	fmt.Println("Starting new app")
+	app, error := app.RawApplication()
 
-	// msg0 := <-messages
-	// fmt.Println(msg0)
+	if error != nil {
+		panic("Something went wrong!")
+	}
 
-	// goroutine
-	go func() {
-		messages <- "ping1"
-		messages <- "ping2"
-		messages <- "ping3"
-		messages <- "ping4"
-		messages <- "ping5"
-	}()
-
-	// msg1 := <-messages
-	// fmt.Println(msg1)
-
-	go func() {
-		receiverMsg := <-messages
-		fmt.Println("receiver: ", receiverMsg)
-	}()
-
-	msg := <-messages
-	fmt.Println(msg)
-
-	close(messages)
+	app.Logger.Println("App started")
 }
