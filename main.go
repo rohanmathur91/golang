@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"golang/internal/app"
+
+	"github.com/rohanmathur91/golang/internal/app"
 )
 
 func main() {
