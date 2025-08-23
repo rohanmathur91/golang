@@ -6,6 +6,10 @@
 go run main.go
 ```
 
+```sh
+curl localhost:8080/health
+```
+
 ### To build
 
 ```go

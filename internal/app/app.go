@@ -10,7 +10,7 @@ type Application struct {
 }
 
 func RawApplication() (*Application, error) {
-	logger := log.New(os.Stdout, "seen on: ", log.Ltime)
+	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 
 	app := &Application{
 		Logger: logger,
