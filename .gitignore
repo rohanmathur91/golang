@@ -4,4 +4,4 @@
 *.dll
 *.so
 *.dylib
-main
+bin
