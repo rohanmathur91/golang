@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/rohanmathur91/golang/internal/app"
+	"github.com/rohanmathur91/golang/internal/routes"
 )
 
 func main() {
@@ -26,11 +27,12 @@ func main() {
 	app.Logger.Println("app started")
 	app.Logger.Println("starting server")
 
-	http.HandleFunc("/health", HealthCheck)
+	r := routes.SetupRoutes(app)
 
 	server := http.Server{
 		Addr:        fmt.Sprintf(":%d", port),
 		IdleTimeout: time.Minute,
+		Handler:     r,
 	}
 
 	app.Logger.Printf("server running on port %d...", port)
@@ -40,9 +42,4 @@ func main() {
 	if error != nil {
 		panic("Something went wrong with server!")
 	}
-}
-
-func HealthCheck(w http.ResponseWriter, r *http.Request) {
-	// fmt.Println(w, "health check")
-	fmt.Fprintf(w, "health check\n")
 }
