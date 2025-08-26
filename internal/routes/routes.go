@@ -10,5 +10,8 @@ func SetupRoutes(app *app.Application) *chi.Mux {
 
 	r.Get("/health", app.HealthCheck)
 
+	// users
+	r.Get("/users/{username}", app.UsersController.GetUserByUsername)
+
 	return r
 }
