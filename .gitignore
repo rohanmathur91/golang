@@ -5,3 +5,5 @@
 *.so
 *.dylib
 bin
+database
+./database

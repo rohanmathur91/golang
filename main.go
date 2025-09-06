@@ -24,6 +24,8 @@ func main() {
 		panic("something went wrong!")
 	}
 
+	defer app.DB.Close() // when everything is executed in main then at last run this
+
 	app.Logger.Println("app started")
 	app.Logger.Println("starting server")
 
