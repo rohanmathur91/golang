@@ -9,6 +9,7 @@ import (
 
 	"github.com/rohanmathur91/golang/internal/controllers"
 	"github.com/rohanmathur91/golang/internal/store"
+	"github.com/rohanmathur91/golang/migrations"
 )
 
 type Application struct {
@@ -22,6 +23,12 @@ func RawApplication() (*Application, error) {
 
 	if err != nil {
 		return nil, err
+	}
+
+	err = store.MigrateFS(db, migrations.FS, ".")
+
+	if err != nil {
+		panic(err)
 	}
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
