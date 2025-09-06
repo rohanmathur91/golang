@@ -11,23 +11,21 @@ import (
 )
 
 func main() {
-	// 1. parse command line port flag
 	var port int
 	flag.IntVar(&port, "port", 8080, "backend server port")
 	flag.Parse()
 
-	// 2. then start the server
 	fmt.Println("starting new app")
-	app, error := app.RawApplication()
+	app, err := app.New()
 
-	if error != nil {
+	if err != nil {
 		panic("something went wrong!")
 	}
 
 	defer app.DB.Close() // when everything is executed in main then at last run this
 
 	app.Logger.Println("app started")
-	app.Logger.Println("starting server")
+	app.Logger.Println("starting server...")
 
 	r := routes.SetupRoutes(app)
 
@@ -39,9 +37,9 @@ func main() {
 
 	app.Logger.Printf("server running on port %d...", port)
 
-	error = server.ListenAndServe()
+	err = server.ListenAndServe()
 
-	if error != nil {
+	if err != nil {
 		panic("Something went wrong with server!")
 	}
 }

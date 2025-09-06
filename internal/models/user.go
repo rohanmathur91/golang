@@ -1,4 +1,4 @@
-package store
+package models
 
 import "database/sql"
 
@@ -10,22 +10,22 @@ type User struct {
 	Bio      string  `json:"bio"`
 }
 
-type PostgresUserStore struct {
+type PostgresUserModel struct {
 	db *sql.DB
 }
 
-func NewPostgresUserStore(db *sql.DB) *PostgresUserStore {
-	return &PostgresUserStore{db: db}
+func NewPostgresUserModel(db *sql.DB) *PostgresUserModel {
+	return &PostgresUserModel{db: db}
 }
 
-type UserStore interface {
+type UserModel interface {
 	CreateUser(*User) (*User, error)
 	GetUserByUsername(username string) (*User, error)
 	// TODO: update
 	// TODO: delete
 }
 
-func (pg *PostgresUserStore) CreateUser(user *User) (*User, error) {
+func (pg *PostgresUserModel) CreateUser(user *User) (*User, error) {
 	tx, err := pg.db.Begin()
 	if err != nil {
 		return nil, err
